@@ -16,19 +16,18 @@ class HomeController extends Controller
      */
     public function index()
     {
+        return view('welcome');
+    }
 
+    public function start()
+    {
+        return view('start');
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function search(Request $request)
     {
-        //
+        return $request->all();
     }
 
 

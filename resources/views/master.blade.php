@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <link rel="stylesheet" href="/styles/styles.css">
+    @yield('head_actions')
 </head>
 <body>
 <div class="container">
@@ -38,5 +39,7 @@
         </main>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+@yield('footer_scripts')
 </body>
 </html>
