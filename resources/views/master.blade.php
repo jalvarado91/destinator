@@ -15,10 +15,8 @@
     @yield('head_actions')
 </head>
 <body>
-<div class="container">
-    <main class="mdl-layout__content">
+<div class="content">
         @yield('content')
-    </main>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Compiled and minified JavaScript -->
