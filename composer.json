@@ -8,7 +8,8 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
         "oriceon/oauth-5-laravel": "dev-master",
-        "cartalyst/sentinel": "2.0.*"
+        "cartalyst/sentinel": "2.0.*",
+        "guzzlehttp/guzzle": "^6.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

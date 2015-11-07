@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -9,11 +10,10 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    private $base_url = 'https://www.priceline.com/pws/v0/stay/retail/listing/';
+
+
     public function index()
     {
         return view('welcome');
@@ -27,7 +27,86 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
+        $params = $request->all();
+        //Listings Search
+        // https://www.priceline.com/pws/v0/stay/retail/listing/new%20york?rguid=3459_Hackathon&check-in=20151201&check-out=20151202&currency=USD&response-options=DETAILED_HOTEL,NEARBY_ATTR,HOTEL_IMAGES&rooms=1&sort=HDR&offset=0&page-size=5
+
+        // Single Listing
+        // https://www.priceline.com/pws/v0/stay/retail/listing/detail/3000016152?all-inclusive=false&cguid=bf77ac74b956443a911e4c56d9ad8ad5&check-in=20151107&check-out=20151108&currency=USD&offset=0&page-name=Hotels-Listing&page-size=40&popcount-since-mins=120&response-options=TRIP_FILTER_SUMMARY,POP_COUNT,DETAILED_HOTEL,NEARBY_CITY,CLUSTER_INFO,SPONS&rguid=2015110703104469001021-1446911565641-NSRLM&rooms=1
+        $checkin_date = $params['check-in'];
+        $checkout_date = $params['check-out'];
+        $max_price = $params['max-price'];
+        $rooms = $params['rooms'];
+        $term = $this->getRandomLocation();
+        $encodeTerm = urlencode($term);
+        $cookieID = time().'_Hackathon';
+
+        $listings_url = $this->base_url.$encodeTerm;
+        $listingsResponse = (new Client())->get($listings_url, [
+            'rguid' => $cookieID,
+            'currency' => 'USD',
+            'check-in' => $checkin_date,
+            'check-out' => $checkout_date,
+            'rooms' => $rooms,
+            'max-price' => $max_price,
+            'offset' => 0,
+            'page-size' => 15,
+        ]);
+
+        $listings = json_decode($listingsResponse->getBody()->getContents());
+        $listingsList = $listings->hotels;
+
+        $hotelId = $listingsList[rand(0, count($listingsList))]->hotelId;
+//        echo $hotelId;
+
+        $hotel_url = $this->base_url.'detail/'.$hotelId;
+        $hotelCoockeID = time().'_Hackathon';
+
+        $hotelResponse = (new Client())->get($hotel_url, [
+            'rguid' => $hotelCoockeID,
+            'currency' => 'USD',
+            'check-in' => $checkin_date,
+            'check-out' => $checkout_date,
+            'rooms' => $rooms,
+            'max-price' => $max_price,
+            'offset' => 0,
+            'rate-display-option'=> 'S',
+            'page-size' => 15,
+        ]);
+
+        $hotel = json_decode($hotelResponse->getBody()->getContents());
+
+        dd($hotel);
+
         return $request->all();
+    }
+
+
+    protected function getRandomLocation() {
+        $locations = [
+            'Maui',
+            'Yellowstone',
+            'Grand Canyon',
+            'San Francisco',
+            'Yosemite',
+            'Washington D.C.',
+            'New York City',
+            'Honolulu - Oahu',
+            'San Diego',
+            'Orlando-Walt Disney World',
+            'Charleston',
+            'Jackson Hole',
+            'Chicago',
+            'Cape Cod',
+            'New Orleans',
+            'Las Vegas',
+            'Anchorage',
+            'Sedona',
+            'Seattle',
+            'Portland, OR',
+        ];
+
+        return $locations[rand(0, count($locations))];
     }
 
 

@@ -1,9 +1,18 @@
-.demo-layout-transparent {
+html {
     background: url('http://unsplash.it/1440/1024') center / cover;
 }
-.demo-layout-transparent .mdl-layout__header,
-.demo-layout-transparent .mdl-layout__drawer-button {
-    /* This background is dark, so we set text to white. Use 87% black instead if
-       your background is light. */
-    color: white;
+html:before {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 137, 236, 0.72);
+    top: 0;
+    left: 0;
+    display: block;
+    content: '';
+    z-index: -1;
 }
+
+.step {
+
+    display: block;width: 330px;float: left;margin-right: 15px;}
