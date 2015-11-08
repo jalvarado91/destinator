@@ -76,9 +76,11 @@ class HomeController extends Controller
 
         $hotel = json_decode($hotelResponse->getBody()->getContents());
 
-        dd($hotel);
+//        dd($hotel);
 
-        return $request->all();
+        return view('explore', [
+            'hotel' => $hotel
+        ]);
     }
 
 

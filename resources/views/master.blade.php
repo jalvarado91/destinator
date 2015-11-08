@@ -15,7 +15,7 @@
     @yield('head_actions')
 </head>
 <body>
-<div class="content">
+<div class="main content">
         @yield('content')
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

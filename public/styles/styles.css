@@ -1,8 +1,10 @@
 html {
-    background: url('http://unsplash.it/1440/1024') center / cover;
+    background: url('http://unsplash.it/1440/1024')no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
 }
 html:before {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     background: rgba(0, 137, 236, 0.72);
@@ -14,5 +16,70 @@ html:before {
 }
 
 .step {
+    /*display: block;width: 330px;float: left;margin-right: 15px;*/
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10px;
+}
 
-    display: block;width: 330px;float: left;margin-right: 15px;}
+#app .bx-wrapper .bx-viewport {
+    background: transparent;
+    border: none;
+    left: 0;
+    box-shadow: none;
+}
+
+#app .card {
+    overflow: visible;
+}
+
+#app .picker__box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#app .people_counter {
+    display: flex;
+    max-width: 240px;
+    margin: 0 auto;
+    padding: 24px 0;
+}
+#app .people_counter input{
+    margin: 0 24px;
+    font-size: 2em;
+    font-weight: 700;
+    border-bottom: 0;
+    text-align: center;
+}
+
+.step_3 .card_action {
+    text-align: center;
+}
+
+.budget {
+    position: relative;
+}
+
+.budget input[type="number"] {
+    font-size: 5em;
+    line-height: 1em;
+    border-bottom: none;
+    height: auto;
+    text-align: center;
+    position: relative;
+    color: #585858;
+    margin-bottom: 0;
+}
+
+.budget:before {
+    content: '$';
+    position: absolute;
+    left: 0;
+    bottom: 15%;
+    font-size: 3em;
+    color: #6AA254;
+}

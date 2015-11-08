@@ -6,9 +6,6 @@ router.map({
     '/': {
         component: Form
     },
-    '/explore': {
-        component: ListingPicker
-    }
 });
 
 router.start(App, '#app');

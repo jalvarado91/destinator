@@ -1,3 +1,13 @@
 var ListingPicker =  Vue.extend({
-    template: '<h1>Listing Picker</h1>'
+    template: '#listing_template'
 });
+
+var App = Vue.extend({});
+var router = new VueRouter();
+router.map({
+    '/': {
+        component: ListingPicker
+    },
+});
+
+router.start(App, '#picker_app');
