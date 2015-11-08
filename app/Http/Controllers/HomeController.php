@@ -72,8 +72,6 @@ class HomeController extends Controller
 
         $hotel = json_decode($hotelResponse->getBody()->getContents());
 
-        dd($hotel);
-
         return view('explore', [
             'hotel' => $hotel,
             'prev_params' => $form_params
