@@ -44,6 +44,12 @@
 @section('content')
 
     <div id="picker_app">
+        <div class="startagain">
+            <a href="/start">
+                <img src = "http://i.imgur.com/t8SXbmq.png" alt="shat" href="/start">
+                <h3>Start Over</h3>
+            </a>
+        </div>
         <router-view></router-view>
     </div>
 
