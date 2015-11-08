@@ -15,3 +15,4 @@ Route::get('/', 'HomeController@index');
 
 Route::get('/start', 'HomeController@start');
 Route::get('/search', 'HomeController@search');
+Route::post('/searchjs', 'HomeController@searchJS');
