@@ -5,6 +5,7 @@ var ListingPicker = Vue.extend({
             hotel: null,
             loading: false,
             prev_params: null,
+            sub_url: null
         }
     },
     methods: {
@@ -27,6 +28,9 @@ var ListingPicker = Vue.extend({
                 $picker.show();
                 $picker.removeClass('rotate-right');
             });
+        },
+        onYesClick: function(e){
+            window.location.origin = self.pl_url;
         }
     },
     computed: {
@@ -52,11 +56,15 @@ var ListingPicker = Vue.extend({
                 return 'Rating N/A';
             }
             return this.hotel.starRating + " /5";
+        },
+        pl_url: function() {
+            return this.sub_url;
         }
     },
     ready: function () {
         var self = this;
         self.hotel = hotel.hotel;
+        self.sub_url = hotel.sub_url;
         self.prev_params = form_params;
 
         $("#picker_app").on("swiperight",function(){

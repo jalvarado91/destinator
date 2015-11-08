@@ -48,6 +48,7 @@ class HomeController extends Controller
             'rooms' => $rooms,
         ];
 
+
         $listings_url = $this->base_url.$encodeTerm;
         $listingsResponse = (new Client())->get($listings_url, [
             'rguid' => $cookieID,
@@ -71,10 +72,18 @@ class HomeController extends Controller
         $hotelResponse = $client->get($hotel_url);
 
         $hotel = json_decode($hotelResponse->getBody()->getContents());
+        $city_id = $hotel->hotel->location->cityId;
+
+        $in_date_nice = substr($checkin_date, 0, 2).'/'.substr($checkin_date, 2, 2).'/'.substr($checkin_date, 4, 2);
+        $out_date_nice = substr($checkout_date, 0, 2).'/'.substr($checkout_date, 2, 2).'/'.substr($checkout_date, 4, 2);
+
+        $sub_url= 'https://www.priceline.com/stay/#/search/hotels/'.$city_id.'/'.$checkin_date.'/'.$checkout_date.'/1?searchType=CITY&page=1&checkInDate='.$in_date_nice.'&checkOutDate='.$out_date_nice.'&splst=true#ratesDetails';
+
+        $hotel->sub_url = $sub_url;
 
         return view('explore', [
             'hotel' => $hotel,
-            'prev_params' => $form_params
+            'prev_params' => $form_params,
         ]);
     }
 
@@ -117,12 +126,23 @@ class HomeController extends Controller
 
         $hotelId = $listingsList[rand(0, count($listingsList))]->hotelId;
 
+
+
         $hotel_url = 'http://www.priceline.com/pws/v0/stay/retail/listing/detail/'.$hotelId.'?check-in='.$checkin_date.'&check-out='.$checkout_date.'&rooms='.$rooms.'&max-price='.$max_price;
 
         $client = new Client();
         $hotelResponse = $client->get($hotel_url);
 
         $hotel = json_decode($hotelResponse->getBody()->getContents());
+
+        $city_id = $hotel->hotel->location->cityId;
+
+        $in_date_nice = substr($checkin_date, 0, 2).'/'.substr($checkin_date, 2, 2).'/'.substr($checkin_date, 4, 2);
+        $out_date_nice = substr($checkout_date, 0, 2).'/'.substr($checkout_date, 2, 2).'/'.substr($checkout_date, 4, 2);
+
+        $sub_url= 'https://www.priceline.com/stay/#/search/hotels/'.$city_id.'/'.$checkin_date.'/'.$checkout_date.'/1?searchType=CITY&page=1&checkInDate='.$in_date_nice.'&checkOutDate='.$out_date_nice.'&splst=true#ratesDetails';
+
+        $hotel->sub_url = $sub_url;
 
         return response()->json($hotel);
     }

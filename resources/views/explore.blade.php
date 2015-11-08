@@ -22,7 +22,7 @@
             </div>
             <div class="choices">
                 <a href="#" @click="onNoClick" class="no-button">Maybe Later</a>
-                <a href="#" @click="onYesClick" class="yes-button">Let's Go!</a>
+                <a target="_blank" href="@{{ pl_url }}" class="yes-button">Let's Go!</a>
             </div>
         </div>
     </script>
